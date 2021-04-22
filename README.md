@@ -297,6 +297,16 @@ You can sponsor us using any of the methods below:
 
 [MIT](https://github.com/laradock/laradock/blob/master/LICENSE) © Mahmoud Zalt
 
+## Enabled Services by Go2Joy
+<b>1:</b> PHP version 7.2.
+<br>
+<b>2:</b> Xdebug.
+<br>
+<b>3:</b> SOAP.
+<br>
+<b>4:</b> MongoDB.
+
+[MIT](https://github.com/laradock/laradock/blob/master/LICENSE) © Mahmoud Zalt
 
 [comment]: # (Open Collective Tiers)
 
