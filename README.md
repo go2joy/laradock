@@ -306,8 +306,6 @@ You can sponsor us using any of the methods below:
 <br>
 <b>4:</b> MongoDB.
 
-[MIT](https://github.com/laradock/laradock/blob/master/LICENSE) © Mahmoud Zalt
-
 [comment]: # (Open Collective Tiers)
 
 [contributors-src]: https://opencollective.com/laradock/contributors.svg?width=890&button=false&isActive=true
