@@ -407,8 +407,14 @@ services:
       depends_on:
         - php-fpm
       networks:
-        - frontend
-        - backend
+        frontend:
+          aliases:
+            - local-partner.go2joy.vn
+            - local-passport.go2joy.vn
+        backend:
+          aliases:
+            - local-partner.go2joy.vn
+            - local-passport.go2joy.vn
 
 ### Blackfire ########################################
     blackfire:
