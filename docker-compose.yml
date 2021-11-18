@@ -616,7 +616,7 @@ services:
       build: ./mongo
       ports:
         - "${MONGODB_PORT}:27017"
-      commands:
+      command:
         - '--auth'
       volumes:
         - ${DATA_PATH_HOST}/mongo:/data/db
