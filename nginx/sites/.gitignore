@@ -1,3 +1,4 @@
 *.conf
 !default.conf
-!go2joy_*.conf
+/go2joy_partner.conf
+/go2joy_passport.conf
