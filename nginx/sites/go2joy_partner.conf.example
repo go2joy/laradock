@@ -9,9 +9,17 @@ server {
     # ssl_certificate /etc/nginx/ssl/default.crt;
     # ssl_certificate_key /etc/nginx/ssl/default.key;
 
+    # For we're custom https
+    client_max_body_size 128M;
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    include snippets/self-signed.conf;
+    include snippets/ssl-params.conf;
+
     server_name local-partner.go2joy.vn;
     root /var/www/Go2JoyPartner/public;
     index index.php index.html index.htm;
+    charset UTF-8;
 
     location / {
          try_files $uri $uri/ /index.php$is_args$args;
