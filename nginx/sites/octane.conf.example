@@ -11,9 +11,9 @@ upstream octane {
 server {
     listen 80;
     listen [::]:80;
-    server_name octane.test;
+    server_name localhost;
     server_tokens off;
-    root /var/www/octane/public;
+    root /var/www/public;
 
     index index.php;
 
