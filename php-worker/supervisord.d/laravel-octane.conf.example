@@ -1,6 +1,6 @@
 [program:laravel-octane]
 process_name=%(program_name)s_%(process_num)02d
-command=php /var/www/html/artisan octane:start --server=swoole --host=0.0.0.0 --port=8000 --workers=auto --task-workers=auto --max-requests=500
+command=php /var/www/artisan octane:start --server=swoole --host=0.0.0.0 --port=8000 --workers=auto --task-workers=auto --max-requests=500
 autostart=true
 autorestart=true
 numprocs=1
