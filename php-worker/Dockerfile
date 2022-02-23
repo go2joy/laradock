@@ -38,7 +38,12 @@ RUN apk --update add wget \
 
 
 RUN pecl channel-update pecl.php.net; \
-  docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl
+  docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl; \
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] && [ $(php -r "echo PHP_MINOR_VERSION;") = "1" ]; then \
+    php -m | grep -q 'tokenizer'; \
+  else \
+    docker-php-ext-install tokenizer; \
+  fi
 
 # Add a non-root user:
 ARG PUID=1000
@@ -257,15 +262,16 @@ RUN if [ ${INSTALL_AUDIOWAVEFORM} = true ]; then \
 ARG INSTALL_AMQP=false
 
 RUN if [ ${INSTALL_AMQP} = true ]; then \
+  docker-php-ext-install sockets; \
   apk --update add -q rabbitmq-c rabbitmq-c-dev && \
   if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ]; then \
-  printf "\n" | pecl install amqp-1.11.0beta; \
+    printf "\n" | pecl install amqp-1.11.0; \
   else \
-  printf "\n" | pecl install amqp; \
+    printf "\n" | pecl install amqp; \
   fi && \
-  docker-php-ext-enable amqp && \
-  apk del -q rabbitmq-c-dev && \
-  docker-php-ext-install sockets \
+    docker-php-ext-enable amqp && \
+    apk del -q rabbitmq-c-dev; \
+    php -m | grep -oiE '^amqp$' \
   ;fi
 
 # Install Gearman:
@@ -362,6 +368,24 @@ RUN set -eux; \
     docker-php-ext-enable swoole; \
     php -m | grep -oiE '^swoole$'; \
   fi
+
+###########################################################################
+# xlswriter:
+###########################################################################
+
+ARG INSTALL_XLSWRITER=false
+
+RUN set -eux; \
+    if [ ${INSTALL_XLSWRITER} = true ]; then \
+      # Install Php xlswriter Extension \
+      if   [ $(php -r "echo PHP_MAJOR_VERSION;") != "5" ]; then \
+          pecl install xlswriter && \
+          docker-php-ext-enable xlswriter && \
+          php -m | grep -q 'xlswriter'; \
+      else \
+          echo "PHP Extension for xlswriter is not supported for PHP 5.0"; \
+      fi \
+    ;fi
 
 ###########################################################################
 # Taint EXTENSION
