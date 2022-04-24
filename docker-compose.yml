@@ -419,8 +419,16 @@ services:
       depends_on:
         - php-fpm
       networks:
-        - frontend
-        - backend
+        frontend:
+          aliases:
+            - local-web.go2joy.vn
+            - local-app.go2joy.vn
+            - local-passport.go2joy.vn
+        backend:
+          aliases:
+            - local-web.go2joy.vn
+            - local-app.go2joy.vn
+            - local-passport.go2joy.vn
 
 ### OpenResty Server #########################################
     openresty:

@@ -1,25 +1,17 @@
 server {
 
-    listen 80 default_server;
-    listen [::]:80 default_server ipv6only=on;
+    listen 80;
+    listen [::]:80;
 
     # For https
-    # listen 443 ssl default_server;
-    # listen [::]:443 ssl default_server ipv6only=on;
+    # listen 443 ssl;
+    # listen [::]:443 ssl ipv6only=on;
     # ssl_certificate /etc/nginx/ssl/default.crt;
     # ssl_certificate_key /etc/nginx/ssl/default.key;
 
-    # For we're custom https
-    #client_max_body_size 128M;
-    #listen 443 ssl;
-    #listen [::]:443 ssl;
-    #include snippets/self-signed.conf;
-    #include snippets/ssl-params.conf;
-
-    server_name localhost;
-    root /var/www/go2joy-api-gateway/public;
+    server_name local-passport.go2joy.vn;
+    root /var/www/go2joy-passport-service/public;
     index index.php index.html index.htm;
-    charset UTF-8;
 
     location / {
          try_files $uri $uri/ /index.php$is_args$args;
@@ -46,6 +38,6 @@ server {
         log_not_found off;
     }
 
-    error_log  /var/log/nginx/error.log;
-    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/go2joy_web_service_error.log;
+    access_log /var/log/nginx/go2joy_web_service_access.log;
 }
