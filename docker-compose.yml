@@ -198,6 +198,10 @@ services:
         - backend
       links:
         - docker-in-docker
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### PHP-FPM ##############################################
     php-fpm:
@@ -302,6 +306,10 @@ services:
         - backend
       links:
         - docker-in-docker
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### PHP Worker ############################################
     php-worker:
@@ -348,6 +356,11 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
         - backend
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
+
 ### Laravel Horizon ############################################
     laravel-horizon:
       build:
@@ -417,6 +430,10 @@ services:
           aliases:
             - local-partner.go2joy.vn
             - local-passport.go2joy.vn
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### Blackfire ########################################
     blackfire:
@@ -631,6 +648,10 @@ services:
         - ${DATA_PATH_HOST}/mongo_config:/data/configdb
       networks:
         - backend
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### RethinkDB ##############################################
     rethinkdb:
@@ -682,6 +703,10 @@ services:
         - "${REDIS_PORT}:6379"
       networks:
         - backend
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### Redis Cluster ##########################################
     redis-cluster:
@@ -1475,6 +1500,10 @@ services:
         - 2375
       networks:
         - backend
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### NetData ################################################
     netdata:
