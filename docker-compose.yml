@@ -200,6 +200,10 @@ services:
         - backend
       links:
         - docker-in-docker
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### PHP-FPM ##############################################
     php-fpm:
@@ -307,6 +311,10 @@ services:
         - backend
       links:
         - docker-in-docker
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### PHP Worker ############################################
     php-worker:
@@ -357,6 +365,11 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
         - backend
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
+
 ### Laravel Horizon ############################################
     laravel-horizon:
       build:
@@ -421,6 +434,10 @@ services:
       networks:
         - frontend
         - backend
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### OpenResty Server #########################################
     openresty:
@@ -678,6 +695,10 @@ services:
         - ${DATA_PATH_HOST}/mongo_config:/data/configdb
       networks:
         - backend
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### RethinkDB ##############################################
     rethinkdb:
@@ -729,6 +750,10 @@ services:
         - "${REDIS_PORT}:6379"
       networks:
         - backend
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### Redis Cluster ##########################################
     redis-cluster:
@@ -1531,6 +1556,10 @@ services:
         - 2375
       networks:
         - backend
+      logging:
+        options:
+          max-size: "20m"
+          max-file: "5"
 
 ### NetData ################################################
     netdata:
