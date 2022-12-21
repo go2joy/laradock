@@ -835,6 +835,7 @@ RUN if [ ${INSTALL_SMB} = true ]; then \
 ARG INSTALL_IMAP=false
 
 RUN if [ ${INSTALL_IMAP} = true ]; then \
+    apt-get update && \
     apt-get install -yqq libc-client-dev libkrb5-dev && \
     docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
     docker-php-ext-install imap \
