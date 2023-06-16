@@ -1,0 +1,47 @@
+[program:laravel-pubsub-subscribe-to-new-sign-up]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/artisan pubsub:subscribe-to-new-sign-up
+autostart=true
+autorestart=true
+user=laradock
+redirect_stderr=true
+stdout_logfile=/var/www/storage/logs/pubsub-subscribe-to-new-sign-up.log
+stdout_logfile_maxbytes=10MB
+logfile_backups=10
+numprocs=1
+
+[program:laravel-pubsub-subscribe-to-logging]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/artisan pubsub:subscribe-to-logging
+autostart=true
+autorestart=true
+user=laradock
+redirect_stderr=true
+stdout_logfile=/var/www/storage/logs/pubsub-subscribe-to-logging.log
+stdout_logfile_maxbytes=10MB
+logfile_backups=10
+numprocs=1
+
+[program:laravel-pubsub-create-user-statistic]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/artisan pubsub:create-user-statistic
+autostart=true
+autorestart=true
+user=laradock
+redirect_stderr=true
+stdout_logfile=/var/www/storage/logs/pubsub-create-user-statistic.log
+stdout_logfile_maxbytes=10MB
+logfile_backups=10
+numprocs=1
+
+[program:laravel-pubsub-update-user-statistic]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/artisan pubsub:update-user-statistic
+autostart=true
+autorestart=true
+user=laradock
+redirect_stderr=true
+stdout_logfile=/var/www/storage/logs/pubsub-update-user-statistic.log
+stdout_logfile_maxbytes=10MB
+logfile_backups=10
+numprocs=1
