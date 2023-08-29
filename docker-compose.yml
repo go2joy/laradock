@@ -457,12 +457,12 @@ services:
         frontend:
           aliases:
             - local-web.go2joy.vn
-            - local-app.go2joy.vn
+            - local-mobile.go2joy.vn
             - local-passport.go2joy.vn
         backend:
           aliases:
             - local-web.go2joy.vn
-            - local-app.go2joy.vn
+            - local-mobile.go2joy.vn
             - local-passport.go2joy.vn
       logging:
         options:
