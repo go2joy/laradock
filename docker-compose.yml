@@ -459,11 +459,17 @@ services:
             - local-web.go2joy.vn
             - local-mobile.go2joy.vn
             - local-passport.go2joy.vn
+            - local-sa.go2joy.vn
+            - local-ha.go2joy.vn
+            - local-payment.go2joy.vn
         backend:
           aliases:
             - local-web.go2joy.vn
             - local-mobile.go2joy.vn
             - local-passport.go2joy.vn
+            - local-sa.go2joy.vn
+            - local-ha.go2joy.vn
+            - local-payment.go2joy.vn
       logging:
         options:
           max-size: "20m"
