@@ -31,13 +31,23 @@ RUN apk --update add wget \
   cyrus-sasl-dev \
   libgsasl-dev \
   oniguruma-dev \
-  libressl \
-  libressl-dev \
   supervisor \
-  procps
+  procps; \
+  if [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "50600" ] || \
+     [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70000" ]; then \
+    apk --update add libressl libressl-dev; \
+  else \
+    apk --update add openssl-dev; \
+  fi
 
 RUN pecl channel-update pecl.php.net; \
-    docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl
+  docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl; \
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] && \
+     [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") != "80000" ]; then \
+    php -m | grep -oiE '^tokenizer$'; \
+  else \
+    docker-php-ext-install tokenizer; \
+  fi
 
 # Add a non-root user to help install ffmpeg:
 ARG PUID=1000
@@ -64,12 +74,16 @@ ARG INSTALL_GNUPG=false
 RUN set -eux; if [ ${INSTALL_GNUPG} = true ]; then \
       apk add --no-cache --no-progress --virtual BUILD_DEPS_PHP_GNUPG gpgme-dev; \
       apk add --no-cache --no-progress gpgme; \
-      if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ]; then \
-        pecl install gnupg-1.5.0RC2; \
-      else \
-        pecl install gnupg; \
-      fi; \
+      pecl install gnupg; \
       docker-php-ext-enable gnupg; \
+    fi
+
+#Install LDAP
+ARG INSTALL_LDAP=false;
+RUN set -eux; if [ ${INSTALL_LDAP} = true ]; then \
+      apk add --no-cache --no-progress openldap-dev; \
+      docker-php-ext-install ldap; \
+      php -m | grep -oiE '^ldap$'; \
     fi
 
 #Install GD package:
@@ -196,6 +210,16 @@ RUN if [ ${INSTALL_AUDIOWAVEFORM} = true ]; then \
    && make install \
 ;fi
 
+#####################################
+# poppler-utils:
+#####################################
+USER root
+
+ARG INSTALL_POPPLER_UTILS=false
+
+RUN if [ ${INSTALL_POPPLER_UTILS} = true ]; then \
+  apk add --update --no-cache poppler-utils antiword \
+;fi
 
 # Install Cassandra drivers:
 ARG INSTALL_CASSANDRA=false
